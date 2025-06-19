@@ -63,10 +63,10 @@ Route::middleware('auth:sanctum')->get('/cms/by_board/latest', function (Request
      * Sort all CMs by most recent started timestamp so that we can pull latest
      * for each board.
      */
-    $sub = Cm::orderByDesc('provisioning_started_at');
+    $sub = Cm::orderBy('provisioning_board')
+        ->orderByDesc('provisioning_started_at');
     return Cm::fromSub($sub, 'cm')
         ->groupBy('provisioning_board')
-        ->orderBy('provisioning_board')
         ->get();
 });
 
